@@ -20,4 +20,12 @@ defmodule KV.BucketTest do
     assert bucket |> KV.Bucket.delete("milk") == 3
     assert bucket |> KV.Bucket.get("milk") == nil
   end
+
+  test "Bucket is just a process that can be stopped", %{bucket: bucket} do
+    assert Process.alive?(bucket) == true
+
+    Process.exit(bucket, :terminate)
+
+    assert Process.alive?(bucket) == false
+  end
 end
