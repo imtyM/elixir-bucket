@@ -28,4 +28,8 @@ defmodule KV.BucketTest do
 
     assert Process.alive?(bucket) == false
   end
+
+  test "are temporary workers" do
+    assert Supervisor.child_spec(KV.Bucket, []).restart == :temporary
+  end
 end
